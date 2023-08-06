@@ -1,0 +1,10 @@
+{
+	"comments": {
+		"lineComment": "#",
+		"blockComment": []
+	},
+	"brackets": [],
+	"autoClosingPairs": [],
+	"surroundingPairs": [],
+	"wordPattern": "(\\b\\w+(?:-\\w+)+\\b|[^\\s:]+|:)",
+}

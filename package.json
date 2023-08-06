@@ -1,0 +1,53 @@
+{
+	"name": "vscode-robots-dot-txt-support",
+	"displayName": "Robots.txt Support for Visual Studio Code",
+	"description": "An extension for Visual Studio Code that enables support for robots.txt files.",
+	"license": "MIT",
+	"version": "1.0.0",
+	"publisher": "darian-benam",
+	"keywords": [
+		"config",
+		"robots.txt",
+		"web"
+	],
+	"engines": {
+		"vscode": "^1.81.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Other"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "robots-txt",
+				"aliases": [
+					"Robots.txt",
+					"robots-txt"
+				],
+				"extensions": [
+					"robots.txt"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "robots-txt",
+				"scopeName": "text.robots-txt",
+				"path": "./syntaxes/robots-txt.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "robots-txt",
+				"path": "./snippets/robots-txt-snippets.json"
+			}
+		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/BeardedFish/vscode-robots-dot-txt-support.git"
+	}
+}

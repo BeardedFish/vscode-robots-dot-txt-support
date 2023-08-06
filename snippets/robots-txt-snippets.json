@@ -1,0 +1,30 @@
+{
+	"Robots.txt Disallow All": {
+		"prefix": "disallow-all",
+		"body": "User-agent: *\nDisallow: /"
+	},
+	"Robots.txt Allow": {
+		"prefix": "allow",
+		"body": "Allow: ${1:relative-path}"
+	},
+	"Robots.txt Crawl Delay": {
+		"prefix": "crawl-delay",
+		"body": "Crawl-delay: ${1:seconds}"
+	},
+	"Robots.txt Disallow": {
+		"prefix": "disallow",
+		"body": "Disallow: ${1:relative-path}"
+	},
+	"Robots.txt Host": {
+		"prefix": "host",
+		"body": "Host: ${1:host}"
+	},
+	"Robots.txt Sitemap": {
+		"prefix": "sitemap",
+		"body": "Sitemap: ${1:sitemap-absolute-path}"
+	},
+	"Robots.txt User-agent": {
+		"prefix": "user-agent",
+		"body": "User-agent: ${1:user-agent}"
+	}
+}
