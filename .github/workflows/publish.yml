@@ -1,0 +1,25 @@
+name: Publish Visual Studio Code Extension to Marketplace
+
+on:
+    push:
+        tags:
+            - 'release-*'
+
+jobs:
+    publish-extension:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+
+            - name: Install Visual Studio Code Extension Manager
+              run: npm install -g @vscode/vsce
+
+            - name: Publish Extension to Visual Studio Code Marketplace
+              run: vsce publish -p ${{ secrets.AZURE_DEVOPS_PERSONAL_ACCESS_TOKEN }}
