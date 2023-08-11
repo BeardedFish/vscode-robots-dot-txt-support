@@ -21,14 +21,14 @@
 		"rule-block": {
 			"patterns": [
 				{
-					"match": "(?i)^\\s*([a-zA-Z-]+)\\s*(:)?\\s*([^\\#]*)",
+					"match": "(?i)^([\\s*a-zA-Z0-9-/\\\\.]+\\s*)(:)?\\s*([^\\#]*)",
 					"captures": {
 						"1": {
 							"name": "constant.language.robots-txt",
 							"patterns": [
 								{
 									"name": "invalid.illegal.directive.robots-txt",
-									"match": "(?i)^(?!(allow|crawl-delay|disallow|host|sitemap|user-agent)$).*$"
+									"match": "(?i)^(?!\\s*(allow|crawl-delay|disallow|host|sitemap|user-agent)\\s*$).*"
 								}
 							]
 						},
@@ -39,7 +39,7 @@
 							"name": "string.unquoted.value.robots-txt",
 							"patterns": [
 								{
-									"match": "\\d+(\\.\\d+)?",
+									"match": "-?\\d+(\\.\\d+)?",
 									"name": "constant.numeric.robots-txt"
 								},
 								{

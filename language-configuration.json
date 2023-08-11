@@ -6,5 +6,5 @@
 	"brackets": [],
 	"autoClosingPairs": [],
 	"surroundingPairs": [],
-	"wordPattern": "(\\b\\w+(?:-\\w+)+\\b|[^\\s:]+|:)",
+	"wordPattern": "(\\b\\w+(?:-\\w+)+\\b|https?://[^\\s:]+|[^\\s:]+|:)",
 }

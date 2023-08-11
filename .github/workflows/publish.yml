@@ -21,5 +21,11 @@ jobs:
             - name: Install Visual Studio Code Extension Manager
               run: npm install -g @vscode/vsce
 
+            - name: Install npm Dependencies
+              run: npm install
+
+            - name: Package Extension
+              run: npm run vscode:prepublish
+
             - name: Publish Extension to Visual Studio Code Marketplace
               run: vsce publish -p ${{ secrets.AZURE_DEVOPS_PERSONAL_ACCESS_TOKEN }}

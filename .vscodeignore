@@ -1,2 +1,13 @@
+.github/**
 .vscode/**
+node_modules/**
+src/**
+.editorconfig
+.eslintrc.json
+.gitattributes
 .gitignore
+package-lock.json
+tsconfig.json
+vscode-robots-dot-txt-support.code-workspace
+webpack.config.js
+

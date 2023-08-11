@@ -1,0 +1,53 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"rules": {
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "enumMember",
+				"format": [ "PascalCase" ]
+			}
+		],
+		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/semi": "off",
+		"@typescript-eslint/type-annotation-spacing": "error",
+		"array-bracket-spacing": [
+			"error",
+			"always"
+		],
+		"comma-dangle": [
+			"error",
+			{
+				"arrays": "never",
+				"objects": "never",
+				"imports": "never",
+				"exports": "never",
+				"functions": "never"
+			}
+		],
+		"curly": "error",
+		"quotes": [
+			"error",
+			"double"
+		],
+		"keyword-spacing": "error"
+	},
+	"ignorePatterns": [
+		"dist",
+		"node_modules",
+		"webpack.config.js",
+		"**/*.d.ts"
+	]
+}
