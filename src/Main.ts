@@ -3,8 +3,8 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { analyzeRobotsDotTextConfig } from "./Core/Analysis";
-import { RobotsDotTextToken, tokenizeRobotsDotTextConfig } from "./Core/Tokenization";
+import { isRobotsDotTextSyntaxAnalysisEnabled } from "./Config/ExtensionConfig";
+import { analyzeRobotsDotTextConfig, clearRobotsDotTextConfigDiagnosticIssues } from "./Core/Analysis";
 import { formatRobotsDotTextDocument } from "./Core/Format";
 import {
 	DiagnosticCollection,
@@ -27,12 +27,10 @@ export function activate(context: ExtensionContext): void {
 			const document: TextDocument = event.document;
 
 			if (document.languageId !== ROBOTS_DOT_TXT_LANGUAGE_ID) {
-				return
+				return;
 			}
 
-			const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document);
-
-			analyzeRobotsDotTextConfig(document, robotsDotTextTokens, DIAGNOSTIC_COLLECTION);
+			analyzeRobotsDotTextConfig(document, DIAGNOSTIC_COLLECTION);
 		})
 	];
 
@@ -44,11 +42,32 @@ export function activate(context: ExtensionContext): void {
 		}
 	});
 
+	workspace.onDidChangeConfiguration(event => {
+		const robotsDotTextExtensionConfigChanged: boolean = event.affectsConfiguration("robots.text");
+
+		if (!robotsDotTextExtensionConfigChanged) {
+			return;
+		}
+
+		const isSyntaxAnalysisEnabled: boolean = isRobotsDotTextSyntaxAnalysisEnabled();
+
+		for (const document of workspace.textDocuments) {
+			if (document.languageId !== ROBOTS_DOT_TXT_LANGUAGE_ID) {
+				continue;
+			}
+
+			if (isSyntaxAnalysisEnabled) {
+				analyzeRobotsDotTextConfig(document, DIAGNOSTIC_COLLECTION);
+			} else {
+				clearRobotsDotTextConfigDiagnosticIssues(document, DIAGNOSTIC_COLLECTION);
+			}
+		}
+	});
+
 	const activeDocument: TextDocument | undefined = window.activeTextEditor?.document;
 
 	if (activeDocument?.languageId === ROBOTS_DOT_TXT_LANGUAGE_ID) {
-		const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(activeDocument);
-		analyzeRobotsDotTextConfig(activeDocument, robotsDotTextTokens, DIAGNOSTIC_COLLECTION);
+		analyzeRobotsDotTextConfig(activeDocument, DIAGNOSTIC_COLLECTION);
 	}
 }
 

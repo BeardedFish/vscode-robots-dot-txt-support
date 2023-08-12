@@ -21,6 +21,16 @@
 		"Other"
 	],
 	"contributes": {
+		"configuration": {
+			"title": "Robots.txt",
+			"properties": {
+				"robots.text.analyzeSyntax": {
+					"type": "boolean",
+					"default": true,
+					"description": "Specifies whether to provide real-time diagnostic hints related to syntax or not."
+				}
+			}
+		},
 		"languages": [
 			{
 				"id": "robots-txt",

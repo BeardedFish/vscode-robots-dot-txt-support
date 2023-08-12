@@ -4,7 +4,8 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { RobotsDotTextToken, RobotsDotTextTokenType } from "./Tokenization";
+import { isRobotsDotTextSyntaxAnalysisEnabled } from "../Config/ExtensionConfig";
+import { RobotsDotTextToken, RobotsDotTextTokenType, tokenizeRobotsDotTextConfig } from "./Tokenization";
 import {
 	Diagnostic,
 	DiagnosticCollection,
@@ -47,12 +48,24 @@ const createDiagnosticIssue = function(
 	diagnosticList.push(diagnosticIssue);
 }
 
-export const analyzeRobotsDotTextConfig = function(
+export const clearRobotsDotTextConfigDiagnosticIssues = function(
 	document: TextDocument,
-	configTokens: RobotsDotTextToken[],
 	diagnosticCollection: DiagnosticCollection
 ): void {
+	diagnosticCollection.delete(document.uri);
+}
+
+export const analyzeRobotsDotTextConfig = function(
+	document: TextDocument,
+	diagnosticCollection: DiagnosticCollection
+): void {
+	if (!isRobotsDotTextSyntaxAnalysisEnabled()) {
+		return;
+	}
+
+	const configTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document);
 	const diagnosticList: Diagnostic[] = [];
+
 	let userAgentDirectiveFound: boolean = false;
 
 	for (const token of configTokens) {
