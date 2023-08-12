@@ -69,13 +69,15 @@ export const analyzeRobotsDotTextConfig = function(
 					if (directiveName.toLowerCase() === "user-agent") {
 						userAgentDirectiveFound = true;
 					} else {
-						createDiagnosticIssue(
-							diagnosticList,
-							"No user-agent specified.",
-							token.line.sanitizedRange,
-							DiagnosticSeverity.Error,
-							true
-						);
+						if (directiveName.toLowerCase() !== "sitemap") {
+							createDiagnosticIssue(
+								diagnosticList,
+								"No user-agent specified.",
+								token.line.sanitizedRange,
+								DiagnosticSeverity.Error,
+								true
+							);
+						}
 					}
 				}
 
