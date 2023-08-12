@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.1.0 - 2023-08-12
+
+- Added config setting to toggle syntax analysis - `robots.text.analyzeSyntax`
+- Fixed bug with `sitemap` directive analysis (incorrect diagnostic issue)
+
 ## v1.0.2 - 2023-08-11
 
 - Added real-time code analysis
