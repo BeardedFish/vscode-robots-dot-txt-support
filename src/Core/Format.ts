@@ -7,7 +7,7 @@ import { RobotsDotTextToken, tokenizeRobotsDotTextConfig } from "./Tokenization"
 import { TextDocument, TextEdit } from "vscode";
 
 export const formatRobotsDotTextDocument = function(document: TextDocument): TextEdit[] {
-	const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document);
+	const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document.getText());
 	const formatTextEditList: TextEdit[] = [];
 
 	for (const token of robotsDotTextTokens) {

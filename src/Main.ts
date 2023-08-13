@@ -5,6 +5,7 @@
 
 import { isRobotsDotTextSyntaxAnalysisEnabled } from "./Config/ExtensionConfig";
 import { analyzeRobotsDotTextConfig, clearRobotsDotTextConfigDiagnosticIssues } from "./Core/Analysis";
+import { directiveValueAutoCompletionHandler, globalDirectiveAutoCompletionHandler } from "./Core/AutoCompletion";
 import { formatRobotsDotTextDocument } from "./Core/Format";
 import {
 	DiagnosticCollection,
@@ -23,6 +24,15 @@ const DIAGNOSTIC_COLLECTION: DiagnosticCollection = languages.createDiagnosticCo
 
 export function activate(context: ExtensionContext): void {
 	const extensionEventHandlers: Disposable[] = [
+		languages.registerCompletionItemProvider(
+			ROBOTS_DOT_TXT_LANGUAGE_ID,
+			globalDirectiveAutoCompletionHandler
+		),
+		languages.registerCompletionItemProvider(
+			ROBOTS_DOT_TXT_LANGUAGE_ID,
+			directiveValueAutoCompletionHandler,
+			" "
+		),
 		languages.registerDocumentFormattingEditProvider(ROBOTS_DOT_TXT_LANGUAGE_ID, {
 			provideDocumentFormattingEdits(document: TextDocument): TextEdit[] {
 				return formatRobotsDotTextDocument(document);
