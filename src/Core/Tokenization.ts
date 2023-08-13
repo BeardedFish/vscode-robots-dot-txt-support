@@ -3,11 +3,11 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { Position, Range, TextDocument } from "vscode";
+import { Position, Range } from "vscode";
 
 const ROBOTS_DOT_TXT_COMMENT_PREFIX: string = "#";
 
-const ROBOTS_DOT_TXT_DIRECTIVE_SEPARATOR: string = ":";
+export const ROBOTS_DOT_TXT_DIRECTIVE_SEPARATOR: string = ":";
 
 export enum RobotsDotTextTokenType {
 	BlankLine,
@@ -58,16 +58,16 @@ export class RobotsDotTextToken {
 	}
 }
 
-export const tokenizeRobotsDotTextConfig = function(document: TextDocument | undefined): RobotsDotTextToken[] {
-	if (document === undefined) {
+export const tokenizeRobotsDotTextConfig = function(configRawText: string | undefined): RobotsDotTextToken[] {
+	if (configRawText === undefined) {
 		return [];
 	}
 
 	const robotsDotTextTokens: RobotsDotTextToken[] = [];
-	const configLineList: string[] = document.getText().split("\n");
+	const configLineList: string[] = configRawText.split("\n");
 	let currentLineIndex: number = -1;
 
-    for (const rawLine of configLineList) {
+	for (const rawLine of configLineList) {
 		++currentLineIndex;
 
 		const sanitizedLine: string = rawLine.trim();
@@ -77,13 +77,13 @@ export const tokenizeRobotsDotTextConfig = function(document: TextDocument | und
 			raw: rawLine,
 			rawRange: new Range(
 				new Position(currentLineIndex, 0),
-                new Position(currentLineIndex, rawLine.length)
+				new Position(currentLineIndex, rawLine.length)
 			),
 			sanitized: sanitizedLine,
 			sanitizedRange: new Range(
-                new Position(currentLineIndex, sanitizedLineFirstCharacter),
-                new Position(currentLineIndex, sanitizedLineFirstCharacter + sanitizedLine.length)
-            )
+				new Position(currentLineIndex, sanitizedLineFirstCharacter),
+				new Position(currentLineIndex, sanitizedLineFirstCharacter + sanitizedLine.length)
+			)
 		};
 
 		if (sanitizedLine.length === 0) {
@@ -117,15 +117,15 @@ export const tokenizeRobotsDotTextConfig = function(document: TextDocument | und
 			const directiveNameIndex: number = rawLine.indexOf(directiveName);
 			const directiveValueIndex: number = rawLine.indexOf(directiveValue, directiveNameIndex + directiveName.length);
 
-            const nameRange: Range = new Range(
-                new Position(currentLineIndex, directiveNameIndex),
-                new Position(currentLineIndex, directiveNameIndex + directiveName.length)
-            );
+			const nameRange: Range = new Range(
+				new Position(currentLineIndex, directiveNameIndex),
+				new Position(currentLineIndex, directiveNameIndex + directiveName.length)
+			);
 
-            const valueRange: Range = new Range(
-                new Position(currentLineIndex, directiveValueIndex),
-                new Position(currentLineIndex, directiveValueIndex + directiveValue.length)
-            );
+			const valueRange: Range = new Range(
+				new Position(currentLineIndex, directiveValueIndex),
+				new Position(currentLineIndex, directiveValueIndex + directiveValue.length)
+			);
 
 			robotsDotTextTokens.push(new RobotsDotTextToken(
 				RobotsDotTextTokenType.Directive,

@@ -13,3 +13,4 @@ An extension for Visual Studio Code that enables support for `robots.txt` files.
 * Formatter
 * Snippets
 * Real-time Syntax Analysis
+* Basic IntelliSense

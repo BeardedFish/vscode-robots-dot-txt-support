@@ -5,6 +5,7 @@
  */
 
 import { isRobotsDotTextSyntaxAnalysisEnabled } from "../Config/ExtensionConfig";
+import { VALID_ROBOTS_TEXT_DIRECTIVES } from "./AutoCompletion";
 import { RobotsDotTextToken, RobotsDotTextTokenType, tokenizeRobotsDotTextConfig } from "./Tokenization";
 import {
 	Diagnostic,
@@ -15,17 +16,14 @@ import {
 	TextDocument
 } from "vscode";
 
-const VALID_ROBOTS_TXT_DIRECTIVES: string[] = [
-	"allow",
-	"crawl-delay",
-	"disallow",
-	"host",
-	"sitemap",
-	"user-agent"
-];
-
 const isValidRobotsDotTextDirective = function(directive: string): boolean {
-	return VALID_ROBOTS_TXT_DIRECTIVES.includes(directive.toLowerCase());
+	for (let i = 0; i < VALID_ROBOTS_TEXT_DIRECTIVES.length; i++) {
+		if (VALID_ROBOTS_TEXT_DIRECTIVES[i].name.toLowerCase() === directive.toLowerCase()) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 const createDiagnosticIssue = function(
@@ -63,7 +61,7 @@ export const analyzeRobotsDotTextConfig = function(
 		return;
 	}
 
-	const configTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document);
+	const configTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document.getText());
 	const diagnosticList: Diagnostic[] = [];
 
 	let userAgentDirectiveFound: boolean = false;
