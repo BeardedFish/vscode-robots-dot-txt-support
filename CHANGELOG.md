@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.2.0 - 2023-08-13
+
+- Implemented basic IntelliSense auto completion support (global and scoped)
+- Fixed leak issue with two event listeners
+
 ## v1.1.0 - 2023-08-12
 
 - Added config setting to toggle syntax analysis - `robots.text.analyzeSyntax`
