@@ -23,6 +23,32 @@ const DIAGNOSTIC_COLLECTION: DiagnosticCollection = languages.createDiagnosticCo
 
 export function activate(context: ExtensionContext): void {
 	const extensionEventHandlers: Disposable[] = [
+		languages.registerDocumentFormattingEditProvider(ROBOTS_DOT_TXT_LANGUAGE_ID, {
+			provideDocumentFormattingEdits(document: TextDocument): TextEdit[] {
+				return formatRobotsDotTextDocument(document);
+			}
+		}),
+		workspace.onDidChangeConfiguration(event => {
+			const robotsDotTextExtensionConfigChanged: boolean = event.affectsConfiguration("robots.text");
+
+			if (!robotsDotTextExtensionConfigChanged) {
+				return;
+			}
+
+			const isSyntaxAnalysisEnabled: boolean = isRobotsDotTextSyntaxAnalysisEnabled();
+
+			for (const document of workspace.textDocuments) {
+				if (document.languageId !== ROBOTS_DOT_TXT_LANGUAGE_ID) {
+					continue;
+				}
+
+				if (isSyntaxAnalysisEnabled) {
+					analyzeRobotsDotTextConfig(document, DIAGNOSTIC_COLLECTION);
+				} else {
+					clearRobotsDotTextConfigDiagnosticIssues(document, DIAGNOSTIC_COLLECTION);
+				}
+			}
+		}),
 		workspace.onDidChangeTextDocument(event => {
 			const document: TextDocument = event.document;
 
@@ -35,34 +61,6 @@ export function activate(context: ExtensionContext): void {
 	];
 
 	context.subscriptions.push(...extensionEventHandlers);
-
-	languages.registerDocumentFormattingEditProvider(ROBOTS_DOT_TXT_LANGUAGE_ID, {
-		provideDocumentFormattingEdits(document: TextDocument): TextEdit[] {
-			return formatRobotsDotTextDocument(document);
-		}
-	});
-
-	workspace.onDidChangeConfiguration(event => {
-		const robotsDotTextExtensionConfigChanged: boolean = event.affectsConfiguration("robots.text");
-
-		if (!robotsDotTextExtensionConfigChanged) {
-			return;
-		}
-
-		const isSyntaxAnalysisEnabled: boolean = isRobotsDotTextSyntaxAnalysisEnabled();
-
-		for (const document of workspace.textDocuments) {
-			if (document.languageId !== ROBOTS_DOT_TXT_LANGUAGE_ID) {
-				continue;
-			}
-
-			if (isSyntaxAnalysisEnabled) {
-				analyzeRobotsDotTextConfig(document, DIAGNOSTIC_COLLECTION);
-			} else {
-				clearRobotsDotTextConfigDiagnosticIssues(document, DIAGNOSTIC_COLLECTION);
-			}
-		}
-	});
 
 	const activeDocument: TextDocument | undefined = window.activeTextEditor?.document;
 
