@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.2.1 - 2023-08-15
+
+- Fixed syntax analysis bug on directives if an inline comment was present
+
 ## v1.2.0 - 2023-08-13
 
 - Implemented basic IntelliSense auto completion support (global and scoped)
