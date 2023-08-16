@@ -28,6 +28,7 @@ export type RobotsDotTextDirective = {
 	nameRange: Range;
 	value: string;
 	valueRange: Range;
+	inlineComment?: string;
 }
 
 export class RobotsDotTextToken {
@@ -50,8 +51,18 @@ export class RobotsDotTextToken {
 			return "";
 		}
 
-		if (this.type === RobotsDotTextTokenType.Directive) {
-			return `${this.directive?.name}: ${this.directive?.value}`;
+		if (this.type === RobotsDotTextTokenType.Directive && this.directive !== undefined) {
+			let robotsDotTextInstruction: string = `${this.directive.name}: ${this.directive.value}`;
+
+			if (this.directive.inlineComment !== undefined) {
+				if (this.directive.value.length > 0) {
+					robotsDotTextInstruction += " ";
+				}
+
+				robotsDotTextInstruction += this.directive.inlineComment;
+			}
+
+			return robotsDotTextInstruction;
 		}
 
 		return this.line.sanitized;
@@ -109,9 +120,17 @@ export const tokenizeRobotsDotTextConfig = function(configRawText: string | unde
 		if (directiveSeparatorIndex !== -1) {
 			const directiveName: string = sanitizedLine.substring(0, directiveSeparatorIndex).trim();
 			let directiveValue: string = "";
+			let directiveInlineComment: string | undefined = undefined;
 
 			if (directiveSeparatorIndex + 1 < sanitizedLine.length) {
-				directiveValue = sanitizedLine.substring(directiveSeparatorIndex + 1, rawLine.length).trim()
+				directiveValue = sanitizedLine.substring(directiveSeparatorIndex + 1, rawLine.length).trim();
+
+				const inlineCommentStartIndex: number = directiveValue.indexOf(ROBOTS_DOT_TXT_COMMENT_PREFIX);
+
+				if (inlineCommentStartIndex !== -1) {
+					directiveInlineComment = directiveValue.substring(inlineCommentStartIndex, directiveValue.length);
+					directiveValue = directiveValue.substring(0, inlineCommentStartIndex).trim();
+				}
 			}
 
 			const directiveNameIndex: number = rawLine.indexOf(directiveName);
@@ -134,7 +153,8 @@ export const tokenizeRobotsDotTextConfig = function(configRawText: string | unde
 					name: directiveName,
 					nameRange: nameRange,
 					value: directiveValue,
-					valueRange: valueRange
+					valueRange: valueRange,
+					inlineComment: directiveInlineComment
 				}
 			));
 
