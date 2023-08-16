@@ -11,7 +11,7 @@ export const formatRobotsDotTextDocument = function(document: TextDocument): Tex
 	const formatTextEditList: TextEdit[] = [];
 
 	for (const token of robotsDotTextTokens) {
-		formatTextEditList.push(TextEdit.replace(token.line.rawRange, token.toString()))
+		formatTextEditList.push(TextEdit.replace(token.line.rawRange, token.toString()));
 	}
 
 	return formatTextEditList;
