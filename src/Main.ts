@@ -3,6 +3,7 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
+import { importRobotsDotTextFileFromWeb, RobotsDotTextExtensionCommand } from "./Commands/CommandHandler";
 import { isRobotsDotTextSyntaxAnalysisEnabled } from "./Config/ExtensionConfig";
 import { analyzeRobotsDotTextConfig, clearRobotsDotTextConfigDiagnosticIssues } from "./Core/Analysis";
 import { directiveValueAutoCompletionHandler, globalDirectiveAutoCompletionHandler } from "./Core/AutoCompletion";
@@ -18,7 +19,6 @@ import {
 	window,
 	workspace
 } from "vscode";
-import { importRobotsDotTextFileFromWeb, RobotsDotTextExtensionCommand } from "./Commands/CommandHandler";
 
 const ROBOTS_DOT_TXT_LANGUAGE_ID: string = "robots-txt";
 
