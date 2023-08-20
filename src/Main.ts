@@ -3,11 +3,13 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
+import { importRobotsDotTextFileFromWeb, RobotsDotTextExtensionCommand } from "./Commands/CommandHandler";
 import { isRobotsDotTextSyntaxAnalysisEnabled } from "./Config/ExtensionConfig";
 import { analyzeRobotsDotTextConfig, clearRobotsDotTextConfigDiagnosticIssues } from "./Core/Analysis";
 import { directiveValueAutoCompletionHandler, globalDirectiveAutoCompletionHandler } from "./Core/AutoCompletion";
 import { formatRobotsDotTextDocument } from "./Core/Format";
 import {
+	commands,
 	DiagnosticCollection,
 	Disposable,
 	ExtensionContext,
@@ -24,6 +26,7 @@ const DIAGNOSTIC_COLLECTION: DiagnosticCollection = languages.createDiagnosticCo
 
 export function activate(context: ExtensionContext): void {
 	const extensionEventHandlers: Disposable[] = [
+		commands.registerCommand(RobotsDotTextExtensionCommand.ImportRobotsDotTextFileFromWeb, () => importRobotsDotTextFileFromWeb(context)),
 		languages.registerCompletionItemProvider(
 			ROBOTS_DOT_TXT_LANGUAGE_ID,
 			globalDirectiveAutoCompletionHandler
