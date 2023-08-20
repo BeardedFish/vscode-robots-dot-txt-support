@@ -31,6 +31,19 @@
 				}
 			}
 		},
+		"commands": [
+			{
+				"command": "robotsDotText.importRobotsDotTextFileFromWeb",
+				"title": "Robots.txt: Import From Web"
+			}
+		],
+		"grammars": [
+			{
+				"language": "robots-txt",
+				"scopeName": "text.robots-txt",
+				"path": "./syntaxes/robots-txt.tmLanguage.json"
+			}
+		],
 		"languages": [
 			{
 				"id": "robots-txt",
@@ -44,13 +57,14 @@
 				"configuration": "./language-configuration.json"
 			}
 		],
-		"grammars": [
-			{
-				"language": "robots-txt",
-				"scopeName": "text.robots-txt",
-				"path": "./syntaxes/robots-txt.tmLanguage.json"
-			}
-		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "robotsDotText.importRobotsDotTextFileFromWeb",
+					"when": "editorLangId == robots-txt"
+				}
+			]
+		},
 		"snippets": [
 			{
 				"language": "robots-txt",
@@ -88,5 +102,8 @@
 		"typescript": "^5.1.3",
 		"webpack": "^5.85.0",
 		"webpack-cli": "^5.1.1"
+	},
+	"dependencies": {
+		"node-fetch": "^3.3.2"
 	}
 }
