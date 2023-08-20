@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.3.0 - 2023-08-20
+
+- Added command that allows importing `robots.txt` files from the web: `Robots.txt: Import From Web`
+
 ## v1.2.1 - 2023-08-15
 
 - Fixed syntax analysis bug on directives if an inline comment was present
