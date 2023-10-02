@@ -5,8 +5,16 @@
 
 import { ExtensionContext, version } from "vscode";
 
-export const getBotUserAgent = function(context: ExtensionContext): string {
-	return `Mozilla/5.0 (compatible; Visual Studio Code/${version}; Robots.txt Support for Visual Studio Code/${context.extension.packageJSON.version}; +https://github.com/BeardedFish/vscode-robots-dot-txt-support)`;
+export type RobotsDotTextCrawlerHttpHeaders = {
+	"User-Agent": string,
+	"From": string
+};
+
+export const getCrawlerHttpHeaders = function(context: ExtensionContext): RobotsDotTextCrawlerHttpHeaders {
+	return {
+		"User-Agent": `Mozilla/5.0 (compatible; Visual Studio Code/${version}; Robots.txt Support for Visual Studio Code/${context.extension.packageJSON.version}; +https://github.com/BeardedFish/vscode-robots-dot-txt-support)`,
+		"From": "darian@darianbenam.com"
+	};
 }
 
 export const validateHttpUrl = function(value: string): string | null {

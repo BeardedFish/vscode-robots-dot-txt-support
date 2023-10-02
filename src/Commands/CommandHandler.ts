@@ -3,7 +3,7 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { getBotUserAgent, validateHttpUrl } from "../Networking/Http";
+import { getCrawlerHttpHeaders, validateHttpUrl } from "../Networking/Http";
 import fetch, { Response } from "node-fetch";
 import { ExtensionContext, Range, TextDocument, TextEditor, TextEditorEdit, window } from "vscode";
 
@@ -29,7 +29,7 @@ export const importRobotsDotTextFileFromWeb = async function(context: ExtensionC
 		const response: Response = await fetch(robotsDotTextLocation, {
 			headers: {
 				"Accept": "text/plain",
-				"User-Agent": getBotUserAgent(context)
+				...getCrawlerHttpHeaders(context)
 			}
 		});
 
