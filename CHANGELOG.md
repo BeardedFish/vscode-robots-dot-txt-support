@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.4.0 - 2023-10-01
+
+- Added `From` HTTP header (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/From) to the `Robots.txt: Import From Web` command's web crawler
+
 ## v1.3.0 - 2023-08-20
 
 - Added command that allows importing `robots.txt` files from the web: `Robots.txt: Import From Web`
