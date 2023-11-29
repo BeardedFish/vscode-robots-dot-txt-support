@@ -3,7 +3,7 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { getCrawlerHttpHeaders, validateHttpUrl } from "../Networking/Http";
+import { getCrawlerHttpHeaders, validateHttpUrl } from "@client/networking/http";
 import fetch, { Response } from "node-fetch";
 import { ExtensionContext, Range, TextDocument, TextEditor, TextEditorEdit, window } from "vscode";
 
@@ -11,7 +11,7 @@ export enum RobotsDotTextExtensionCommand {
 	ImportRobotsDotTextFileFromWeb = "robotsDotText.importRobotsDotTextFileFromWeb"
 }
 
-export const importRobotsDotTextFileFromWeb = async function(context: ExtensionContext): Promise<void> {
+export async function importRobotsDotTextFileFromWeb(context: ExtensionContext): Promise<void> {
 	const userInput: string | undefined = await window.showInputBox({ prompt: "Domain/Absolute Path", value: "", validateInput: validateHttpUrl });
 
 	if (userInput === undefined) {

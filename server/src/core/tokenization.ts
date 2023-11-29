@@ -3,7 +3,7 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { Position, Range } from "vscode";
+import { Range } from "vscode-languageserver";
 
 const ROBOTS_DOT_TXT_COMMENT_PREFIX: string = "#";
 
@@ -86,15 +86,27 @@ export const tokenizeRobotsDotTextConfig = function(configRawText: string | unde
 
 		const currentLine: RobotsDotTextLine = {
 			raw: rawLine,
-			rawRange: new Range(
-				new Position(currentLineIndex, 0),
-				new Position(currentLineIndex, rawLine.length)
-			),
+			rawRange: {
+				start: {
+					line: currentLineIndex,
+					character: 0
+				},
+				end: {
+					line: currentLineIndex,
+					character: rawLine.length
+				}
+			},
 			sanitized: sanitizedLine,
-			sanitizedRange: new Range(
-				new Position(currentLineIndex, sanitizedLineFirstCharacter),
-				new Position(currentLineIndex, sanitizedLineFirstCharacter + sanitizedLine.length)
-			)
+			sanitizedRange: {
+				start: {
+					line: currentLineIndex,
+					character: sanitizedLineFirstCharacter
+				},
+				end: {
+					line: currentLineIndex,
+					character: sanitizedLineFirstCharacter + sanitizedLine.length
+				}
+			}
 		};
 
 		if (sanitizedLine.length === 0) {
@@ -136,15 +148,27 @@ export const tokenizeRobotsDotTextConfig = function(configRawText: string | unde
 			const directiveNameIndex: number = rawLine.indexOf(directiveName);
 			const directiveValueIndex: number = rawLine.indexOf(directiveValue, directiveNameIndex + directiveName.length);
 
-			const nameRange: Range = new Range(
-				new Position(currentLineIndex, directiveNameIndex),
-				new Position(currentLineIndex, directiveNameIndex + directiveName.length)
-			);
+			const nameRange: Range = {
+				start: {
+					line: currentLineIndex,
+					character: directiveNameIndex
+				},
+				end: {
+					line: currentLineIndex,
+					character: directiveNameIndex + directiveName.length
+				}
+			};
 
-			const valueRange: Range = new Range(
-				new Position(currentLineIndex, directiveValueIndex),
-				new Position(currentLineIndex, directiveValueIndex + directiveValue.length)
-			);
+			const valueRange: Range = {
+				start: {
+					line: currentLineIndex,
+					character: directiveValueIndex
+				},
+				end: {
+					line: currentLineIndex,
+					character: directiveValueIndex + directiveValue.length
+				}
+			};
 
 			robotsDotTextTokens.push(new RobotsDotTextToken(
 				RobotsDotTextTokenType.Directive,

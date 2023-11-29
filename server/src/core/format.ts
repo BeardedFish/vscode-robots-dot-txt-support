@@ -3,11 +3,11 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { RobotsDotTextToken, tokenizeRobotsDotTextConfig } from "./Tokenization";
-import { TextDocument, TextEdit } from "vscode";
+import { RobotsDotTextToken, tokenizeRobotsDotTextConfig } from "@language-server/core/tokenization";
+import { TextEdit } from "vscode-languageserver";
 
-export const formatRobotsDotTextDocument = function(document: TextDocument): TextEdit[] {
-	const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document.getText());
+export function getFormatDocumentTextEdits(documentText: string): TextEdit[] {
+	const robotsDotTextTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(documentText);
 	const formatTextEditList: TextEdit[] = [];
 
 	for (const token of robotsDotTextTokens) {
