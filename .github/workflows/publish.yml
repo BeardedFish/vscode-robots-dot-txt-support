@@ -18,7 +18,7 @@ jobs:
       - name: Install Visual Studio Code Extension Manager
         run: npm install -g @vscode/vsce
       - name: Install npm Dependencies
-        run: npm install
+        run: npm run install-dependencies
       - name: Package Extension
         run: npm run vscode:prepublish
       - name: Publish Extension to Visual Studio Code Marketplace
