@@ -79,7 +79,7 @@
 	"main": "./dist/client/extension-client.js",
 	"scripts": {
 		"prepare": "husky install",
-		"postinstall": "cd client && npm ci && cd ../server && npm ci && cd ..",
+		"install-dependencies": "npm ci && cd client && npm ci && cd ../server && npm ci && cd ..",
 		"package": "npx webpack --mode production --devtool hidden-source-map",
 		"vscode:prepublish": "npm run compile",
 		"clean": "rimraf dist",
