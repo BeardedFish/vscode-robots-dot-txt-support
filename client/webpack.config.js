@@ -9,7 +9,7 @@ module.exports = withDefaults({
 		extension: "./src/client.ts",
 	},
 	output: {
-		filename: "extension-client.js",
-		path: path.join(__dirname, "..", "dist", "client")
+		filename: "extension.js",
+		path: path.join(__dirname, "dist")
 	}
 });

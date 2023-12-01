@@ -19,7 +19,7 @@ export function activate(context: ExtensionContext): void {
 	context.subscriptions.push(...extensionEventHandlers);
 
 	client = setupLanguageServerClient(
-		path.join("dist", "server", "extension-server.js"),
+		path.join("server", "dist", "server.js"),
 		context
 	);
 }

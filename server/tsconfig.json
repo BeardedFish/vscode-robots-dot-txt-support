@@ -15,12 +15,9 @@
 			"@language-server/*": [
 				"./src/*"
 			]
-		},
+		}
 	},
 	"include": [
 		"src"
-	],
-	"exclude": [
-		"node_modules"
 	]
 }

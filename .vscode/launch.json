@@ -7,16 +7,17 @@
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceRoot}",
+				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--disable-extensions"
 			],
 			"outFiles": [
-				"${workspaceRoot}/dist/**/*.js"
+				"${workspaceFolder}/client/dist/**/*.js"
 			],
-			"preLaunchTask": {
-				"type": "npm",
-				"script": "compile"
+			"preLaunchTask": "npm: webpack:dev",
+			"sourceMaps": true,
+			"sourceMapPathOverrides": {
+				"webpack://vscode-robots-dot-txt-support-client/*": "${workspaceFolder}/client/*"
 			}
-		},
+		}
 	]
 }

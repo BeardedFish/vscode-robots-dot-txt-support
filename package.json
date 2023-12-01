@@ -76,19 +76,19 @@
 		"type": "git",
 		"url": "https://github.com/BeardedFish/vscode-robots-dot-txt-support.git"
 	},
-	"main": "./dist/client/extension-client.js",
+	"main": "./client/dist/extension.js",
 	"scripts": {
+		"install-dependencies": "npm ci && cd client && npm ci && cd ../server && npm ci && cd ..",
+		"vscode:prepublish": "npm run webpack",
 		"prepare": "husky install",
-		"postinstall": "cd client && npm ci && cd ../server && npm ci && cd ..",
-		"package": "npx webpack --mode production --devtool hidden-source-map",
-		"vscode:prepublish": "npm run compile",
-		"clean": "rimraf dist",
-		"compile": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
-		"compile:dev": "npm run clean && webpack --mode none --config ./client/webpack.config.js && webpack --mode none --config ./server/webpack.config.js",
+		"clean": "rimraf client/dist && rimraf server/dist",
+		"compile": "npm run webpack",
 		"lint": "npm run lint:client && npm run lint:server",
 		"lint:client": "eslint --config ./client/.eslintrc.json ./client/src/*.ts",
 		"lint:server": "eslint --config ./server/.eslintrc.json ./server/src/*.ts",
-		"lint:fix": "npm run lint:client --fix && npm run lint:server --fix"
+		"lint:fix": "npm run lint:client --fix && npm run lint:server --fix",
+		"webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
+		"webpack:dev": "npm run clean && webpack --mode development --config ./client/webpack.config.js && webpack --mode development --config ./server/webpack.config.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.1.0",

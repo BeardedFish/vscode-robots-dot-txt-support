@@ -2,12 +2,14 @@
 .husky/**
 .vscode/**
 node_modules/**
-client/**
-server/**
+**/*.ts
 .editorconfig
 .eslintrc.base.json
 .gitattributes
 .gitignore
 package-lock.json
+tsconfig.json
 tsconfig.base.json
 vscode-robots-dot-txt-support.code-workspace
+webpack.config.common.json
+webpack.config.js

@@ -9,7 +9,7 @@ module.exports = webpackBase({
 		extension: "./src/server.ts",
 	},
 	output: {
-		filename: "extension-server.js",
-		path: path.join(__dirname, "..", "dist", "server")
+		filename: "server.js",
+		path: path.join(__dirname, "dist")
 	}
 });
