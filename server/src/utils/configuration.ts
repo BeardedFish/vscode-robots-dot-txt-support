@@ -20,7 +20,7 @@ let globalConfiguration: RobotsDotTextConfiguration = DEFAULT_CONFIGURATION;
 export function onConfigurationChanged(
 	hasConfigurationCapability: boolean,
 	didChangeConfigurationParams: DidChangeConfigurationParams
-) {
+): void {
 	if (hasConfigurationCapability) {
 		DOCUMENT_CONFIGURATION_MANAGER.clear();
 		return;
