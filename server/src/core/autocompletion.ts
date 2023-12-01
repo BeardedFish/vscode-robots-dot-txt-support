@@ -40,7 +40,6 @@ export const VALID_ROBOTS_TEXT_DIRECTIVES: RobotsDotTextDirective[] = [
 	}
 ];
 
-
 const createAutoCompletionValueItem = function(label: string): CompletionItem {
 	return {
 		label: label,
@@ -126,4 +125,3 @@ export const DIRECTIVE_COMPLETION_SCOPE_LOOKUP_TABLE: RobotsDotTextAutoCompletio
 		createAutoCompletionValueItem("YandexWebmaster")
 	]
 }
-
