@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.5.0 - 2023-12-02
+
+- Refactored the extension to use a separate `Node.js` language server for formatting, real-time syntax analysis, and basic IntelliSense.
+
 ## v1.4.0 - 2023-10-01
 
 - Added `From` HTTP header (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/From) to the `Robots.txt: Import From Web` command's web crawler

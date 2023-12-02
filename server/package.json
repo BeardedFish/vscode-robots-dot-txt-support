@@ -1,6 +1,6 @@
 {
 	"name": "vscode-robots-dot-txt-support-language-server",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "A Node.js based language server that provides a Formatter, Real-time Syntax Analysis, and Basic IntelliSense for interacting with `robots.txt` files.",
 	"main": "src/server.ts",
 	"engines": {
