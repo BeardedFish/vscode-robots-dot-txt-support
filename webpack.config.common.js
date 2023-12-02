@@ -13,7 +13,7 @@ module.exports = function webpackBase(extensionConfig) {
 		resolve: {
 			alias: {
 				"@client": path.resolve(__dirname, "client", "src"),
-				"@language-server": path.resolve(__dirname, "server", "src"),
+				"@language-server": path.resolve(__dirname, "server", "src")
 			},
 			mainFields: [
 				"module",
@@ -22,7 +22,7 @@ module.exports = function webpackBase(extensionConfig) {
 			extensions: [
 				".ts",
 				".js"
-			],
+			]
 		},
 		module: {
 			rules: [
@@ -48,7 +48,7 @@ module.exports = function webpackBase(extensionConfig) {
 		output: {
 			filename: "[name].js",
 			path: path.join(extensionConfig.context || "./", "dist"),
-			libraryTarget: "commonjs",
+			libraryTarget: "commonjs"
 		},
 		devtool: "source-map"
 	};
