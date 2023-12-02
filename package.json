@@ -76,33 +76,36 @@
 		"type": "git",
 		"url": "https://github.com/BeardedFish/vscode-robots-dot-txt-support.git"
 	},
-	"main": "./dist/extension.js",
+	"main": "./client/dist/extension.js",
 	"scripts": {
+		"install-dependencies": "npm ci && cd client && npm ci && cd ../server && npm ci && cd ..",
+		"vscode:prepublish": "npm run webpack",
 		"prepare": "husky install",
-		"vscode:prepublish": "npm run package",
-		"compile": "npx webpack",
-		"watch": "npx webpack --watch",
-		"package": "npx webpack --mode production --devtool hidden-source-map",
-		"lint": "npx eslint src --ext ts",
-		"lint:fix": "npm run lint -- --fix"
+		"clean": "rimraf client/dist && rimraf server/dist",
+		"compile": "npm run webpack",
+		"lint": "npm run lint:client && npm run lint:server",
+		"lint:client": "eslint --config ./client/.eslintrc.json ./client/src/*.ts",
+		"lint:server": "eslint --config ./server/.eslintrc.json ./server/src/*.ts",
+		"lint:fix": "npm run lint:client --fix && npm run lint:server --fix",
+		"webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
+		"webpack:dev": "npm run clean && webpack --mode development --config ./client/webpack.config.js && webpack --mode development --config ./server/webpack.config.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.1.0",
-		"@types/mocha": "^10.0.1",
 		"@types/node": "20.2.5",
 		"@types/node-fetch": "^2.6.6",
-		"@types/vscode": "^1.81.0",
 		"@typescript-eslint/eslint-plugin": "^5.59.8",
 		"@typescript-eslint/parser": "^5.59.8",
 		"@vscode/test-electron": "^2.3.2",
 		"eslint": "^8.41.0",
 		"glob": "^8.1.0",
 		"husky": "^8.0.3",
-		"mocha": "^10.2.0",
+		"merge-options": "^3.0.4",
+		"rimraf": "^5.0.5",
 		"ts-loader": "^9.4.3",
 		"typescript": "^5.1.3",
-		"webpack": "^5.85.0",
-		"webpack-cli": "^5.1.1"
+		"webpack": "^5.89.0",
+		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
 		"node-fetch": "^3.3.2"

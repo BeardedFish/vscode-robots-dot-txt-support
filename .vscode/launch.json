@@ -2,17 +2,22 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run Extension",
+			"name": "Launch Extension Client",
 			"type": "extensionHost",
 			"request": "launch",
+			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--disable-extensions"
 			],
 			"outFiles": [
-				"${workspaceFolder}/dist/**/*.js"
+				"${workspaceFolder}/client/dist/**/*.js"
 			],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "npm: webpack:dev",
+			"sourceMaps": true,
+			"sourceMapPathOverrides": {
+				"webpack://vscode-robots-dot-txt-support-client/*": "${workspaceFolder}/client/*"
+			}
 		}
 	]
 }

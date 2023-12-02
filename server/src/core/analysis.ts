@@ -4,19 +4,18 @@
  *  @author          Darian Benam <darian@darianbenam.com>
  */
 
-import { isRobotsDotTextSyntaxAnalysisEnabled } from "../Config/ExtensionConfig";
-import { VALID_ROBOTS_TEXT_DIRECTIVES } from "./AutoCompletion";
-import { RobotsDotTextToken, RobotsDotTextTokenType, tokenizeRobotsDotTextConfig } from "./Tokenization";
+import { VALID_ROBOTS_TEXT_DIRECTIVES } from "@language-server/core/autocompletion";
+import { RobotsDotTextToken, RobotsDotTextTokenType, tokenizeRobotsDotTextConfig } from "@language-server/core/tokenization";
+import { RobotsDotTextConfiguration, getDocumentConfiguration } from "@language-server/utils/configuration";
 import {
+	Connection,
 	Diagnostic,
-	DiagnosticCollection,
 	DiagnosticSeverity,
 	DiagnosticTag,
-	Range,
-	TextDocument
-} from "vscode";
+	Range
+} from "vscode-languageserver";
 
-const isValidRobotsDotTextDirective = function(directive: string): boolean {
+function isValidRobotsDotTextDirective(directive: string): boolean {
 	for (let i = 0; i < VALID_ROBOTS_TEXT_DIRECTIVES.length; i++) {
 		if (VALID_ROBOTS_TEXT_DIRECTIVES[i].name.toLowerCase() === directive.toLowerCase()) {
 			return true;
@@ -26,18 +25,18 @@ const isValidRobotsDotTextDirective = function(directive: string): boolean {
 	return false;
 }
 
-const createDiagnosticIssue = function(
+function createDiagnosticIssue(
 	diagnosticList: Diagnostic[],
 	errorMessage: string,
 	tokenRange: Range,
 	severity: DiagnosticSeverity,
 	isUneccessaryCode: boolean = false
 ): void {
-	const diagnosticIssue: Diagnostic = new Diagnostic(
-		tokenRange,
-		errorMessage,
-		severity
-	);
+	const diagnosticIssue: Diagnostic = {
+		range: tokenRange,
+		message: errorMessage,
+		severity: severity
+	};
 
 	if (isUneccessaryCode) {
 		diagnosticIssue.tags = [ DiagnosticTag.Unnecessary ];
@@ -46,27 +45,12 @@ const createDiagnosticIssue = function(
 	diagnosticList.push(diagnosticIssue);
 }
 
-export const clearRobotsDotTextConfigDiagnosticIssues = function(
-	document: TextDocument,
-	diagnosticCollection: DiagnosticCollection
-): void {
-	diagnosticCollection.delete(document.uri);
-}
-
-export const analyzeRobotsDotTextConfig = function(
-	document: TextDocument,
-	diagnosticCollection: DiagnosticCollection
-): void {
-	if (!isRobotsDotTextSyntaxAnalysisEnabled()) {
-		return;
-	}
-
-	const configTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(document.getText());
+function analyzeRobotsDotTextConfig(documentTokens: RobotsDotTextToken[]): Diagnostic[] {
 	const diagnosticList: Diagnostic[] = [];
 
 	let userAgentDirectiveFound: boolean = false;
 
-	for (const token of configTokens) {
+	for (const token of documentTokens) {
 		switch (token.type) {
 			case RobotsDotTextTokenType.Directive: {
 				if (token.directive == null) {
@@ -134,5 +118,42 @@ export const analyzeRobotsDotTextConfig = function(
 		}
 	}
 
-	diagnosticCollection.set(document.uri, diagnosticList);
+	return diagnosticList;
+}
+
+export function resetTextDocumentDiagnostics(connection: Connection, textDocumentUri: string): void {
+	connection.sendDiagnostics({
+		uri: textDocumentUri,
+		diagnostics: []
+	});
+}
+
+export async function validateRobotsDotTextDocument(
+	hasConfigurationCapability: boolean,
+	hasDiagnosticRelatedInformationCapability: boolean,
+	connection: Connection,
+	documentUri: string,
+	documentText: string
+): Promise<void> {
+	if (!hasDiagnosticRelatedInformationCapability) {
+		return;
+	}
+
+	const documentConfiguration: RobotsDotTextConfiguration = await getDocumentConfiguration(
+		connection,
+		hasConfigurationCapability,
+		documentUri
+	);
+
+	if (!documentConfiguration.analyzeSyntax) {
+		return;
+	}
+
+	const configTokens: RobotsDotTextToken[] = tokenizeRobotsDotTextConfig(documentText);
+	const diagnostics: Diagnostic[] = analyzeRobotsDotTextConfig(configTokens);
+
+	connection.sendDiagnostics({
+		uri: documentUri,
+		diagnostics: diagnostics
+	});
 }

@@ -10,14 +10,14 @@ export type RobotsDotTextCrawlerHttpHeaders = {
 	"From": string
 };
 
-export const getCrawlerHttpHeaders = function(context: ExtensionContext): RobotsDotTextCrawlerHttpHeaders {
+export function getCrawlerHttpHeaders(context: ExtensionContext): RobotsDotTextCrawlerHttpHeaders {
 	return {
 		"User-Agent": `Mozilla/5.0 (compatible; Visual Studio Code/${version}; Robots.txt Support for Visual Studio Code/${context.extension.packageJSON.version}; +https://github.com/BeardedFish/vscode-robots-dot-txt-support)`,
 		"From": "darian@darianbenam.com"
 	};
 }
 
-export const validateHttpUrl = function(value: string): string | null {
+export function validateHttpUrl(value: string): string | null {
 	if (value.length > 0 && !(value.startsWith("http://") || value.startsWith("https://"))) {
 		return "URL protocol must be HTTP or HTTPS."
 	}
