@@ -1,4 +1,4 @@
-name: Lint and Compile Code
+name: Core Checks
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - '*'
 
 jobs:
-  lint-and-compile-code:
+  lint-compile-test-code:
     runs-on: windows-latest
     steps:
       - name: Checkout Code
