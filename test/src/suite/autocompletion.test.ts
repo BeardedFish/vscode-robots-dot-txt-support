@@ -57,7 +57,7 @@ async function assertAutocompletionListContainsItems(
 	}
 }
 
-suite("Robots.txt Language Support for Visual Studio Code Autocompletion Test Suite", () => {
+suite("Robots.txt Language Support for Visual Studio Code - Autocompletion Test Suite", () => {
 	setup(async () => {
 		await activateRobotsDotTextExtension();
 	});

@@ -54,7 +54,7 @@ function assertDiagnosticMatch(
 	);
 }
 
-suite("Robots.txt Language Support for Visual Studio Code Diagnostics Test Suite", () => {
+suite("Robots.txt Language Support for Visual Studio Code - Diagnostics Test Suite", () => {
 	setup(async () => {
 		await activateRobotsDotTextExtension();
 	});
