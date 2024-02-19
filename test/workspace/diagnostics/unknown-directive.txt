@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Crawl-delay: 5
+Directive:
+Directive: value
+
+User-agent: Googlebot
+Host: https://www.darianbenam.com
+Disallow: /
+Invalid: abc
+
+Sitemap: https://www.darianbenam.com/sitemap.xml

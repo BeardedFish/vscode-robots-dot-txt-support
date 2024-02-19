@@ -1,0 +1,6 @@
+User-agent: *
+Crawl-delay: 
+Crawl-delay: a
+Crawl-delay: -1
+Crawl-delay: 0
+Crawl-delay: 1

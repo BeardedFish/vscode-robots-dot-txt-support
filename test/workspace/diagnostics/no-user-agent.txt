@@ -1,0 +1,6 @@
+Allow: /
+Disallow: /
+Crawl-delay: 10
+Host: https://www.darianbenam.com
+
+Sitemap: https://www.darianbenam.com/sitemap.xml

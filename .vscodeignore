@@ -1,6 +1,7 @@
+.vscode/
+.vscode-test/
 .github/**
 .husky/**
-.vscode/**
 **/node_modules
 **/.eslintignore
 **/.eslintrc.json
