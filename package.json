@@ -86,7 +86,8 @@
 		"lint": "npm run lint:client && npm run lint:server",
 		"lint:client": "eslint --config ./client/.eslintrc.json ./client/src/*.ts",
 		"lint:server": "eslint --config ./server/.eslintrc.json ./server/src/*.ts",
-		"lint:fix": "npm run lint:client --fix && npm run lint:server --fix",
+		"lint:test": "eslint --config ./test/.eslintrc.json ./test/src/*.ts",
+		"lint:fix": "npm run lint:client --fix && npm run lint:server --fix && npm run lint:test --fix",
 		"test": "tsc -p ./test && node ./test/dist/run-tests.js",
 		"webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
 		"webpack:dev": "npm run clean && webpack --mode development --config ./client/webpack.config.js && webpack --mode development --config ./server/webpack.config.js"
