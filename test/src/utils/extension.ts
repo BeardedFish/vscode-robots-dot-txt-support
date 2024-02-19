@@ -24,7 +24,7 @@ export async function activateRobotsDotTextExtension(
 }
 
 /**
- * Opens a document by URI in Visual Studio Code.
+ * Opens a document by relative URI (from the '../../workspace/' directory) in Visual Studio Code.
  *
  * @param uri The URI to open in Visual Studio Code.
  * @param languageId The langauge ID of the document that Visual Studio Code will display it as.
