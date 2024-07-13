@@ -1,8 +1,13 @@
 # Change Log
 
+## v1.5.1 - 2024-07-13
+
+- Added `Buy Me a Coffee` link to the README.md file
+- Added regression testing via Mocha
+
 ## v1.5.0 - 2023-12-02
 
-- Refactored the extension to use a separate `Node.js` language server for formatting, real-time syntax analysis, and basic IntelliSense.
+- Refactored the extension to use a separate `Node.js` language server for formatting, real-time syntax analysis, and basic IntelliSense
 
 ## v1.4.0 - 2023-10-01
 
